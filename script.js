@@ -1,4 +1,4 @@
-//iife --> immediately inovked function expression, func is evaluated as an expression, then called imme
+//iife --> immediately inovked function expression, func is evaluated as an expression, then called immediately
 (function() {
     const todos = [
         {
@@ -18,13 +18,41 @@
             completed: false
         }
     ]
-    function createToDo(todo) {
-        const list = document.getElementById("list")
-        const data = document.createElement("li")
-        data.innerText = todo.description
-        list.appendChild(data)
+    //element cache
+    const list = document.getElementById("list")
+
+    function createTodo(todo) {
+        const listItem = createListItem(todo)
+        list.appendChild(listItem)
     }
-    todos.forEach(createToDo)
+
+    function createCheckbox(todo) {
+        const checkbox = document.createElement("input")
+        checkbox.type = "checkbox"
+        checkbox.checked = todo.completed
+        return checkbox        
+    }
+
+    function createText(todo) {
+        const elementName = todo.completed ? "strike" : "span"
+        const element = document.createElement(elementName)
+        element.innerText = todo.description
+        return element
+    }
+
+    function createListItem(todo) {
+        const listItem = document.createElement("li")
+
+        const checkbox = createCheckbox(todo)
+        const text = createText(todo)
+
+        listItem.appendChild(checkbox)
+        listItem.appendChild(text)
+
+        return listItem
+    }
+
+    todos.forEach(createTodo)
 })()
 
 
