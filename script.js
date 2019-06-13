@@ -3,19 +3,23 @@
     const todos = [
         {
             description: 'check insurance',
-            completed: false
+            completed: false,
+            id: '134534'
         },
         {
             description: 'mow the lawn',
-            completed: true
+            completed: true,
+            id: '256756'
         },
         {
             description: 'ask for a raise',
-            completed: false
+            completed: false,
+            id: '33456575'
         },
         {
             description: 'come up with a sweet REAio idea',
-            completed: false
+            completed: false,
+            id: '4345'
         }
     ]
     //element cache
@@ -29,6 +33,15 @@
     function createCheckbox(todo) {
         const checkbox = document.createElement("input")
         checkbox.type = "checkbox"
+        checkbox.setAttribute('id', todo.id)
+        checkbox.addEventListener('click', (e) => {
+            todos.forEach((t) => {
+                if (t.id === e.target.id) {
+                    t.completed = !t.completed
+                }
+            })
+            render()
+        })
         checkbox.checked = todo.completed
         return checkbox        
     }
@@ -51,8 +64,12 @@
 
         return listItem
     }
-
-    todos.forEach(createTodo)
+    
+    function render() {
+        list.innerHTML = ""
+        todos.forEach(createTodo)
+    }
+    render()
 })()
 
 
