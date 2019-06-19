@@ -55,14 +55,21 @@
 
     function createListItem(todo) {
         const listItem = document.createElement("li")
-
+        const label = createLabel(todo)
         const checkbox = createCheckbox(todo)
         const text = createText(todo)
-
+        
         listItem.appendChild(checkbox)
-        listItem.appendChild(text)
+        label.appendChild(text)
+        listItem.appendChild(label)
 
         return listItem
+    }
+
+    function createLabel(todo) {
+        const label = document.createElement('label')
+        label.setAttribute('for', todo.id)
+        return label
     }
     
     function render() {
@@ -71,5 +78,4 @@
     }
     render()
 })()
-
-
+//TODO input field
