@@ -1,5 +1,5 @@
-//iife --> immediately inovked function expression, func is evaluated as an expression, then called immediately
-(function() {
+//iife --> immediately invoked function expression, func is evaluated as an expression, then called immediately
+const BhargsApp = (function() {
     const todos = [
         {
             description: 'check insurance',
@@ -77,5 +77,23 @@
         todos.forEach(createTodo)
     }
     render()
+
+    return {
+        createLabel: createLabel,
+        createList: createListItem,
+        createText: createText,
+        createCheckbox: createCheckbox,
+        createTodo, // ES6 syntax, same as key:value above if they're equal
+    }
 })()
 //TODO input field
+//TODO: tests and framework!
+//TODO: add to github pages
+
+// preparation
+// execution
+// expectation
+
+// payload = {}
+// const result = TextDecoderStream(payload)
+// expect(result).toEqual(something)
