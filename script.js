@@ -89,6 +89,7 @@ const BhargsApp = (function() {
 //TODO input field
 //TODO: tests and framework!
 //TODO: add to github pages
+//TODO: add filters
 
 // preparation
 // execution
