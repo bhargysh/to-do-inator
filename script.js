@@ -84,15 +84,15 @@ const BhargsApp = (function() {
         return label
     }
 
-    function filterTodos(todos) {
+    function filterTodos(todos, filter) {
         return todos.filter((todo) => {
-            if (state.filter === SHOW_ALL) {
+            if (filter === SHOW_ALL) {
                 return true;
             }
-            if (state.filter === SHOW_DONE) {
+            if (filter === SHOW_DONE) {
                 return todo.completed;
             }
-            if (state.filter === SHOW_NOT_DONE) {
+            if (filter === SHOW_NOT_DONE) {
                 return !todo.completed;
             }
             return true;
@@ -115,7 +115,7 @@ const BhargsApp = (function() {
     
     function render() {
         list.innerHTML = ""
-        const filteredTodos = filterTodos(state.todos)
+        const filteredTodos = filterTodos(state.todos, state.filter)
         filteredTodos.forEach(renderTodo)
     }
     render()
@@ -126,12 +126,17 @@ const BhargsApp = (function() {
         createText: createText,
         createCheckbox: createCheckbox,
         renderTodo, // ES6 syntax, same as key:value above if they're equal
+        filterTodos,
+        filters: {
+            SHOW_ALL,
+            SHOW_DONE, SHOW_NOT_DONE,
+        }
     }
 })()
 //TODO input field
 //TODO: add to github pages
-//TODO: update filter
-//TODO: implement Reduxop
+//TODO: implement Redux
+//TODO: styling!!
 
 // preparation
 // execution

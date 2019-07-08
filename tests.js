@@ -34,3 +34,25 @@ function expect(left) {
     expect(list.children[1].tagName).toEqual('LABEL');
 })();
 
+(function () {
+    console.log('Testing filterTodos')
+    const todos = [
+        {
+            description: 'check account',
+            completed: false,
+            id: '134534'
+        },
+        {
+            description: 'check pad',
+            completed: true,
+            id: '134578' 
+        }
+    ]
+    const filteredList = BhargsApp.filterTodos(todos, BhargsApp.filters.SHOW_DONE)
+    expect(filteredList).toEqual([{
+        description: 'check pad',
+        completed: true,
+        id: '134578'
+    }])
+})();
+
