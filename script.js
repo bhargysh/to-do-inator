@@ -1,7 +1,13 @@
 //iife --> immediately invoked function expression, func is evaluated as an expression, then called immediately
+
+//filters
+const SHOW_ALL = 'show all';
+const SHOW_DONE = 'show done';
+const SHOW_NOT_DONE = 'show not done';
+
 const BhargsApp = (function() {
     const state = {
-        showCompleted: true,
+        filter: SHOW_DONE,
         todos: [
             {
                 description: 'check insurance',
@@ -27,8 +33,11 @@ const BhargsApp = (function() {
     }
     //element cache
     const list = document.getElementById("list")
+    const allButton = document.querySelector("#all")
+    const doneButton = document.querySelector("#done")
+    const ongoingButton = document.querySelector("#ongoing")
 
-    function createTodo(todo) {
+    function renderTodo(todo) {
         const listItem = createListItem(todo)
         list.appendChild(listItem)
     }
@@ -76,13 +85,38 @@ const BhargsApp = (function() {
     }
 
     function filterTodos(todos) {
-        return todos.filter((todo) => state.showCompleted ? todo.completed : true)
+        return todos.filter((todo) => {
+            if (state.filter === SHOW_ALL) {
+                return true;
+            }
+            if (state.filter === SHOW_DONE) {
+                return todo.completed;
+            }
+            if (state.filter === SHOW_NOT_DONE) {
+                return !todo.completed;
+            }
+            return true;
+        })
     }
+
+    //event listeners
+    allButton.addEventListener('click', (event) => {
+        state.filter = SHOW_ALL
+        render()
+    })
+    doneButton.addEventListener('click', (event) => {
+        state.filter = SHOW_DONE
+        render()
+    })
+    ongoingButton.addEventListener('click', (event) => {
+        state.filter = SHOW_NOT_DONE
+        render()
+    })
     
     function render() {
         list.innerHTML = ""
         const filteredTodos = filterTodos(state.todos)
-        filteredTodos.forEach(createTodo)
+        filteredTodos.forEach(renderTodo)
     }
     render()
 
@@ -91,13 +125,13 @@ const BhargsApp = (function() {
         createList: createListItem,
         createText: createText,
         createCheckbox: createCheckbox,
-        createTodo, // ES6 syntax, same as key:value above if they're equal
+        renderTodo, // ES6 syntax, same as key:value above if they're equal
     }
 })()
 //TODO input field
 //TODO: add to github pages
 //TODO: update filter
-//TODO: implement Redux
+//TODO: implement Reduxop
 
 // preparation
 // execution
