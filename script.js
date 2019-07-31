@@ -7,7 +7,7 @@ const SHOW_NOT_DONE = 'show not done';
 
 const BhargsApp = (function() {
     const state = {
-        filter: SHOW_DONE,
+        filter: SHOW_ALL,
         todos: [
             {
                 description: 'check insurance',
@@ -32,10 +32,12 @@ const BhargsApp = (function() {
         ]
     }
     //element cache
-    const list = document.getElementById("list")
-    const allButton = document.querySelector("#all")
-    const doneButton = document.querySelector("#done")
-    const ongoingButton = document.querySelector("#ongoing")
+    const list = document.getElementById('list')
+    const allButton = document.querySelector('#all')
+    const doneButton = document.querySelector('#done')
+    const ongoingButton = document.querySelector('#ongoing')
+    const inputField = document.querySelector('#new-todo')
+    const form = document.querySelector('#form')
 
     function renderTodo(todo) {
         const listItem = createListItem(todo)
@@ -43,8 +45,8 @@ const BhargsApp = (function() {
     }
 
     function createCheckbox(todo) {
-        const checkbox = document.createElement("input")
-        checkbox.type = "checkbox"
+        const checkbox = document.createElement('input')
+        checkbox.type = 'checkbox'
         checkbox.setAttribute('id', todo.id)
         checkbox.addEventListener('click', (e) => {
             state.todos.forEach((t) => {
@@ -59,14 +61,14 @@ const BhargsApp = (function() {
     }
 
     function createText(todo) {
-        const elementName = todo.completed ? "strike" : "span"
+        const elementName = todo.completed ? 'strike' : 'span'
         const element = document.createElement(elementName)
         element.innerText = todo.description
         return element
     }
 
     function createListItem(todo) {
-        const listItem = document.createElement("li")
+        const listItem = document.createElement('li')
         const label = createLabel(todo)
         const checkbox = createCheckbox(todo)
         const text = createText(todo)
@@ -112,9 +114,26 @@ const BhargsApp = (function() {
         state.filter = SHOW_NOT_DONE
         render()
     })
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (inputField.value === "") {
+            return //do nothing if input is empty
+        }
+        const newToDo = {
+            description: inputField.value,
+            completed: false,
+            id: Date.now(),
+        }
+        state.todos = [
+            ...state.todos, //spread operator
+            newToDo,
+        ]
+        inputField.value = "";
+        render();
+    })
     
     function render() {
-        list.innerHTML = ""
+        list.innerHTML = ''
         const filteredTodos = filterTodos(state.todos, state.filter)
         filteredTodos.forEach(renderTodo)
     }
