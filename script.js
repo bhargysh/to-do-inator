@@ -38,10 +38,13 @@ const BhargsApp = (function() {
     const ongoingButton = document.querySelector('#ongoing')
     const inputField = document.querySelector('#new-todo')
     const form = document.querySelector('#form')
+    const allList = document.querySelector('#all-list')
+    const doneList = document.querySelector('#done-list')
+    const ongoingList = document.querySelector('#ongoing-list')
 
-    function renderTodo(todo) {
+    function renderTodo(todo, listRoot) {
         const listItem = createListItem(todo)
-        list.appendChild(listItem)
+        listRoot.appendChild(listItem)
     }
 
     function createCheckbox(todo) {
@@ -134,8 +137,24 @@ const BhargsApp = (function() {
     
     function render() {
         list.innerHTML = ''
+        allList.innerHTML = ''
+        doneList.innerHTML = ''
+        ongoingList.innerHTML = ''
         const filteredTodos = filterTodos(state.todos, state.filter)
-        filteredTodos.forEach(renderTodo)
+        const getList = () => {
+            if (state.filter === SHOW_ALL) {
+                return allList
+            }
+            if (state.filter === SHOW_DONE) {
+                return doneList
+            }
+            if (state.filter === SHOW_NOT_DONE) {
+                return ongoingList
+            }
+            return allList;
+        }
+        const chosenList = getList()
+        filteredTodos.forEach((item) => renderTodo(item, chosenList));
     }
     render()
 
