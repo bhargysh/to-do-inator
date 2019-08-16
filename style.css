@@ -1,0 +1,61 @@
+.list {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 8px;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 5px lightgrey;
+    margin-bottom: 10px;
+}
+
+.list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list button {
+    text-transform: uppercase;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 9px;
+    width: 80px;
+}
+
+.list button:hover {
+    background-color: blueviolet;
+    animation: mymove 1s linear;
+}
+
+@keyframes mymove {
+    from {background-color: hotpink;}
+    to {background-color: blueviolet;}
+}
+
+.list button:active {
+    font-weight: bold;
+}
+
+.big-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.all-lists {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+@media all and (min-width: 750px) {
+    .all-lists {
+        flex-direction: row;
+    }
+    .list {
+        flex-basis: 33%;
+    }
+}
+
+/**
+animate the shadow of the button, hover effect -> lift off
+**/

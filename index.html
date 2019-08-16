@@ -5,36 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To-Do-Inator</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>It Loads yay</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ea ratione repudiandae, numquam voluptatem sunt vitae repellat explicabo veniam harum iusto consequuntur, recusandae id impedit qui eveniet quis quod perferendis!</p>
-    <h2>To do List</h2>
-    <form id="form">
-        <input type="text" id="new-todo">
-        <input type="submit" id="submit">
-    </form>
-    <button id="all">All</button>
-    <ul id="all-list"></ul>
-    <button id="done">Done</button>
-    <ul id="done-list"></ul>
-    <button id="ongoing">Ongoing</button>
-    <ul id="ongoing-list"></ul>
-    <p>Old List below</p>
-    <ul id="list">
-        <!-- <li>
-            <input type="checkbox" checked>
-            <strike>Call Mum</strike>
-        </li>
-        <li>
-            <input type="checkbox" id="text">
-            <label for="text">
-                <strike>
-                Call Dad
-                </strike>
-            </label>
-        </li> -->
-    </ul>
+    <div class="big-wrapper">
+        <h1>It Loads yay</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ea ratione repudiandae, numquam voluptatem sunt vitae repellat explicabo veniam harum iusto consequuntur, recusandae id impedit qui eveniet quis quod perferendis!</p>
+        <h2>To do List</h2>
+        <form id="form">
+            <input type="text" id="new-todo">
+            <input type="submit" id="submit">
+        </form>
+        <div class="all-lists">
+            <div class="list">
+                <button id="all">All</button>
+                <ul id="all-list"></ul>
+            </div>
+            <div class="list">
+                <button id="done">Done</button>
+                <ul id="done-list"></ul>
+            </div>
+            <div class="list ongoing-wrapper">
+                <button id="ongoing">Ongoing</button>
+                <ul id="ongoing-list"></ul>
+            </div>
+        </div>
+        <p>Old List below</p>
+        <ul id="list">
+        </ul>
+    </div>
 </body>
 <script src="script.js"></script>
 <script src="tests.js"></script>
