@@ -1,11 +1,12 @@
 //iife --> immediately invoked function expression, func is evaluated as an expression, then called immediately
-
 //filters
 const SHOW_ALL = 'show all';
 const SHOW_DONE = 'show done';
 const SHOW_NOT_DONE = 'show not done';
+const ADD_TODO = 'ADD_TODO';
 
 const BhargsApp = (function() {
+
     const state = {
         filter: SHOW_ALL,
         todos: [
@@ -31,6 +32,72 @@ const BhargsApp = (function() {
             }
         ]
     }
+
+    const duplicateState = {
+        filter: SHOW_ALL,
+        todos: [
+            {
+                description: 'check insurance',
+                completed: false,
+                id: '134534'
+            },
+            {
+                description: 'mow the lawn',
+                completed: true,
+                id: '256756'
+            },
+            {
+                description: 'ask for a raise',
+                completed: false,
+                id: '33456575'
+            },
+            {
+                description: 'come up with a sweet REAio idea',
+                completed: false,
+                id: '4345'
+            }
+        ]
+    }
+    const reducer = (reduxState, action) => {
+        switch (action.type) {
+            case 'TOGGLE_CHECKBOX': {
+                return toggleCheckbox(reduxState, action)
+            }
+            case 'CHANGE_FILTER': {
+                return changeFilter(reduxState, action)
+            }
+            case ADD_TODO: {
+                return addToDo(reduxState, action)
+            }
+            default:
+                return reduxState
+        }
+    }
+    const changeFilter = (reduxState, action) => ({
+        ...reduxState,
+        filter: action.payload
+    })
+
+    const toggleCheckbox = (reduxState, action) => ({
+        ...reduxState,
+        todos: reduxState.todos.map(todo => {
+            if(todo.id === action.payload) {
+                return {
+                    ...todo,
+                    completed: !todo.completed
+                }
+            }
+            return todo
+        })
+    })
+
+    const addToDo = (reduxState, action) => ({
+        ...reduxState,
+        todos: [...reduxState.todos, action.payload]
+    })
+
+    const store = Redux.createStore(reducer, duplicateState)
+
     //element cache
     const list = document.getElementById('list')
     const allButton = document.querySelector('#all')
@@ -52,15 +119,11 @@ const BhargsApp = (function() {
         checkbox.type = 'checkbox'
         checkbox.setAttribute('id', todo.id)
         checkbox.addEventListener('click', (e) => {
-            state.todos.forEach((t) => {
-                if (t.id === e.target.id) {
-                    t.completed = !t.completed
-                }
-            })
+            store.dispatch({type: 'TOGGLE_CHECKBOX', payload: todo.id})
             render()
         })
         checkbox.checked = todo.completed
-        return checkbox        
+        return checkbox
     }
 
     function createText(todo) {
@@ -75,7 +138,7 @@ const BhargsApp = (function() {
         const label = createLabel(todo)
         const checkbox = createCheckbox(todo)
         const text = createText(todo)
-        
+
         listItem.appendChild(checkbox)
         label.appendChild(text)
         listItem.appendChild(label)
@@ -106,15 +169,15 @@ const BhargsApp = (function() {
 
     //event listeners
     allButton.addEventListener('click', (event) => {
-        state.filter = SHOW_ALL
+        store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_ALL})
         render()
     })
     doneButton.addEventListener('click', (event) => {
-        state.filter = SHOW_DONE
+        store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_DONE})
         render()
     })
     ongoingButton.addEventListener('click', (event) => {
-        state.filter = SHOW_NOT_DONE
+        store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_NOT_DONE})
         render()
     })
     form.addEventListener('submit', (event) => {
@@ -127,28 +190,26 @@ const BhargsApp = (function() {
             completed: false,
             id: Date.now(),
         }
-        state.todos = [
-            ...state.todos, //spread operator
-            newToDo,
-        ]
+        store.dispatch({type: ADD_TODO, payload: newToDo})
         inputField.value = "";
         render();
     })
-    
+
     function render() {
         list.innerHTML = ''
         allList.innerHTML = ''
         doneList.innerHTML = ''
         ongoingList.innerHTML = ''
-        const filteredTodos = filterTodos(state.todos, state.filter)
+        const storeState = store.getState()
+        const filteredTodos = filterTodos(storeState.todos, storeState.filter) //part where you do the switch to redux state
         const getList = () => {
-            if (state.filter === SHOW_ALL) {
+            if (storeState.filter === SHOW_ALL) {
                 return allList
             }
-            if (state.filter === SHOW_DONE) {
+            if (storeState.filter === SHOW_DONE) {
                 return doneList
             }
-            if (state.filter === SHOW_NOT_DONE) {
+            if (storeState.filter === SHOW_NOT_DONE) {
                 return ongoingList
             }
             return allList;
@@ -171,10 +232,7 @@ const BhargsApp = (function() {
         }
     }
 })()
-//TODO input field
-//TODO: add to github pages
-//TODO: implement Redux
-//TODO: styling!!
+//TODO: talk about Redux subscribe
 
 // preparation
 // execution
