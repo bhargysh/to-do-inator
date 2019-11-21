@@ -1,11 +1,11 @@
 //iife --> immediately invoked function expression, func is evaluated as an expression, then called immediately
 //filters
-const SHOW_ALL = 'show all';
-const SHOW_DONE = 'show done';
-const SHOW_NOT_DONE = 'show not done';
-const ADD_TODO = 'ADD_TODO';
 
 const BhargsApp = (function() {
+    const SHOW_ALL = 'show all';
+    const SHOW_DONE = 'show done';
+    const SHOW_NOT_DONE = 'show not done';
+    const ADD_TODO = 'ADD_TODO';
 
     const state = {
         filter: SHOW_ALL,
@@ -120,7 +120,6 @@ const BhargsApp = (function() {
         checkbox.setAttribute('id', todo.id)
         checkbox.addEventListener('click', (e) => {
             store.dispatch({type: 'TOGGLE_CHECKBOX', payload: todo.id})
-            render()
         })
         checkbox.checked = todo.completed
         return checkbox
@@ -170,15 +169,12 @@ const BhargsApp = (function() {
     //event listeners
     allButton.addEventListener('click', (event) => {
         store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_ALL})
-        render()
     })
     doneButton.addEventListener('click', (event) => {
         store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_DONE})
-        render()
     })
     ongoingButton.addEventListener('click', (event) => {
         store.dispatch({type: 'CHANGE_FILTER', payload: SHOW_NOT_DONE})
-        render()
     })
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -192,7 +188,6 @@ const BhargsApp = (function() {
         }
         store.dispatch({type: ADD_TODO, payload: newToDo})
         inputField.value = "";
-        render();
     })
 
     function render() {
@@ -201,7 +196,7 @@ const BhargsApp = (function() {
         doneList.innerHTML = ''
         ongoingList.innerHTML = ''
         const storeState = store.getState()
-        const filteredTodos = filterTodos(storeState.todos, storeState.filter) //part where you do the switch to redux state
+        const filteredTodos = filterTodos(storeState.todos, storeState.filter)
         const getList = () => {
             if (storeState.filter === SHOW_ALL) {
                 return allList
@@ -219,6 +214,8 @@ const BhargsApp = (function() {
     }
     render()
 
+    store.subscribe(render)
+
     return {
         createLabel: createLabel,
         createList: createListItem,
@@ -232,7 +229,6 @@ const BhargsApp = (function() {
         }
     }
 })()
-//TODO: talk about Redux subscribe
 
 // preparation
 // execution

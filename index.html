@@ -1,41 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>To-Do-Inator</title>
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="big-wrapper">
-        <h1>It Loads yay</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ea ratione repudiandae, numquam voluptatem sunt vitae repellat explicabo veniam harum iusto consequuntur, recusandae id impedit qui eveniet quis quod perferendis!</p>
-        <h2>To do List</h2>
-        <form id="form">
-            <input type="text" id="new-todo">
-            <input type="submit" id="submit">
-        </form>
-        <div class="all-lists">
-            <div class="list">
-                <button id="all">All</button>
-                <ul id="all-list"></ul>
-            </div>
-            <div class="list">
-                <button id="done">Done</button>
-                <ul id="done-list"></ul>
-            </div>
-            <div class="list ongoing-wrapper">
-                <button id="ongoing">Ongoing</button>
-                <ul id="ongoing-list"></ul>
-            </div>
+      <h1>It Loads yay</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero ea ratione
+        repudiandae, numquam voluptatem sunt vitae repellat explicabo veniam
+        harum iusto consequuntur, recusandae id impedit qui eveniet quis quod
+        perferendis!
+      </p>
+      <h2>To do List</h2>
+      <form id="form">
+        <input type="text" id="new-todo" />
+        <input type="submit" id="submit" />
+      </form>
+      <div class="all-lists">
+        <div class="list">
+          <button id="all">All</button>
+          <ul id="all-list"></ul>
         </div>
-        <p>Old List below</p>
-        <ul id="list">
-        </ul>
+        <div class="list">
+          <button id="done">Done</button>
+          <ul id="done-list"></ul>
+        </div>
+        <div class="list ongoing-wrapper">
+          <button id="ongoing">Ongoing</button>
+          <ul id="ongoing-list"></ul>
+        </div>
+      </div>
+      <p>Old List below</p>
+      <ul id="list"></ul>
     </div>
-</body>
-<script src="redux.min.js"></script>
-<script src="script.js"></script>
-<script src="tests.js"></script>
+  </body>
+  <script src="reduckz.js"></script>
+  <script src="script.js"></script>
+  <script src="tests.js"></script>
 </html>
